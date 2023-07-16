@@ -1,0 +1,68 @@
+Server:
+  port:8080
+---
+spring:
+  profiles:
+    active: origin
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/MySecondDatabase_dev
+    password: qwer1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+server:
+  error:
+    include-message: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/MySecondDatabase_qa
+    password: qwer1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+server:
+  error:
+    include-message: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: origin
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/MySecondDatabase
+    password: qwer1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+server:
+  error:
+    include-message: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+
