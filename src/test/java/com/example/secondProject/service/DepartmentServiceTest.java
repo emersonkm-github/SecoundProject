@@ -37,6 +37,34 @@ class DepartmentServiceTest {
         String departmentName = "IT";
         Department found = departmentService.fetchDepartmentByName(departmentName);
         assertEquals(departmentName,found.getDepartmentName());
+        System.out.println("found = " + found);
+    }
+
+    @Test
+    @DisplayName("Test updating department by ID")
+    void testUpdateDepartmentById() {
+        Long departmentId = 1L;
+        Department existingDepartment = Department.builder()
+                .departmentName("IT")
+                .departmentAddress("HKNT")
+                .departmentCode("IT-123")
+                .departmentId(departmentId)
+                .build();
+        Department updatedDepartment = Department.builder()
+                .departmentName("IT")
+                .departmentAddress("HK")
+                .departmentCode("IT-456")
+                .build();
+
+        Mockito.when(departmentRepository.findById(departmentId))
+                .thenReturn(java.util.Optional.of(existingDepartment));
+        Mockito.when(departmentRepository.save(existingDepartment))
+                .thenReturn(updatedDepartment);
+
+        Department actualDepartment = departmentService.updateDepartmentById(departmentId, updatedDepartment);
+
+        assertEquals(updatedDepartment.getDepartmentAddress(), actualDepartment.getDepartmentAddress());
+        assertEquals(updatedDepartment.getDepartmentCode(), actualDepartment.getDepartmentCode());
 
     }
 }
