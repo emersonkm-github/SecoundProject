@@ -41,7 +41,7 @@ class DepartmentControllerTest {
     void saveDepartment() throws Exception {
         Department inputdepartment = Department.builder()
                 .departmentName("HK EEE")
-                .departmentAddress("HKNT123")
+                .departmentAddress("HKNT123567")
                 .departmentCode("EEE")
                 .build();
         Mockito.when(departmentService.saveDepartment(inputdepartment))
@@ -54,6 +54,7 @@ class DepartmentControllerTest {
                         "\t\"departmentCode\":\"EEE\"\n" +
                         "}"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        assertEquals(department.getDepartmentName(),inputdepartment.getDepartmentName());
     }
 
     @Test
